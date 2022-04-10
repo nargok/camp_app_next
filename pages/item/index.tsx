@@ -3,6 +3,8 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import FloatingButton from '../../components/FloatingButton'
+import { useEffect, useState } from 'react'
+import { getItemList } from '../../api/item'
 
 interface Item {
   id: number
@@ -11,47 +13,17 @@ interface Item {
   weight: number
 }
 
-const itemList: Item[] = [
-  {
-    id: 1,
-    name: 'ピコグリル298',
-    category: '焚き火台',
-    weight: 300,
-  },
-  {
-    id: 2,
-    name: 'アイアンメスティン',
-    category: 'クッカー',
-    weight: 1500,
-  },
-  {
-    id: 3,
-    name: 'YOKA 焚き火台',
-    category: '焚き火台',
-    weight: 1500,
-  },
-  {
-    id: 3,
-    name: 'YOKA 焚き火台',
-    category: '焚き火台',
-    weight: 1500,
-  },
-  {
-    id: 3,
-    name: 'YOKA 焚き火台',
-    category: '焚き火台',
-    weight: 1500,
-  },
-  {
-    id: 3,
-    name: 'YOKA 焚き火台',
-    category: '焚き火台',
-    weight: 1500,
-  },
-]
-
 const Index: NextPage = () => {
   const router = useRouter()
+  const [itemList, setItemList] = useState<Item[]>([])
+
+  useEffect(() => {
+    getItemList()
+      .then((res) => {
+        setItemList(res.data.item_list)
+      })
+      .catch((e) => console.error(e.message))
+  }, [])
 
   const goToRegister = () => {
     router.push('/item/register')
@@ -79,7 +51,7 @@ const Index: NextPage = () => {
           </thead>
           <tbody>
             {itemList.map((item) => (
-              <tr>
+              <tr key={item.id}>
                 <td className="border px-4 py-2">{item.name}</td>
                 <td className="border px-4 py-2">{item.category}</td>
                 <td className="border px-4 py-2 text-right">{item.weight}</td>
