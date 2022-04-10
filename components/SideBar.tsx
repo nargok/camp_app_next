@@ -10,6 +10,10 @@ const menuItems = [
     title: 'Item',
   },
   {
+    href: '/project',
+    title: 'Project',
+  },
+  {
     href: '/about',
     title: 'About',
   },
