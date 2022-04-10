@@ -1,25 +1,48 @@
 import { NextPage } from 'next'
-import Link from 'next/link'
-
+import { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
-import { registerItem } from '../../api/item'
+import Link from 'next/link'
+import { getItem, ItemUpdateRequest, updateItem } from '../../api/item'
 
-const Register: NextPage = () => {
+const Update: NextPage = () => {
   const router = useRouter()
+  const { item_id } = router.query
+  const [id, setId] = useState<number>()
   const [name, setName] = useState<string>('')
   const [weight, setWeight] = useState<number>(0)
 
-  const handleRegister = () => {
-    const form = {
+  const nameInputRef = useRef()
+  const weightInputRef = useRef()
+
+  const fetchItem = async (id: number) => {
+    const res = await getItem(id).catch((e) => console.error(e.message))
+    setName(res.data.name)
+    nameInputRef.current.value = res.data.name
+    setWeight(res.data.weight)
+    weightInputRef.current.value = res.data.weight
+  }
+
+  useEffect(() => {
+    return setId(item_id)
+  }, [router])
+
+  useEffect(() => {
+    if (id) {
+      fetchItem(id)
+    }
+  }, [id])
+
+  const handleUpdate = () => {
+    const request: ItemUpdateRequest = {
+      id,
       name,
       weight,
     }
-    registerItem(form)
-      .catch((e) => console.error(e.message))
-      .finally(() => {
-        router.push('/item')
+    updateItem(request)
+      .catch((e) => {
+        console.error(e.message)
       })
+      .finally(() => router.push('/item'))
   }
 
   return (
@@ -37,6 +60,7 @@ const Register: NextPage = () => {
             id="name"
             type="text"
             placeholder="Item Name"
+            ref={nameInputRef}
             onChange={(e) => setName(e.target.value)}
           />
         </div>
@@ -62,6 +86,7 @@ const Register: NextPage = () => {
             className="focus:shadow-outline w-full appearance-none rounded border py-2 px-3 leading-tight text-gray-700 shadow focus:outline-none"
             id="weight"
             type="number"
+            ref={weightInputRef}
             onChange={(e) => setWeight(Number(e.target.value))}
           />
         </div>
@@ -69,9 +94,9 @@ const Register: NextPage = () => {
           <button
             className="focus:shadow-outline mr-4 rounded bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700 focus:outline-none"
             type="button"
-            onClick={() => handleRegister()}
+            onClick={() => handleUpdate()}
           >
-            登録
+            更新
           </button>
           <Link href="/item">
             <a className="inline-block align-baseline text-sm font-bold text-blue-500 hover:text-blue-800">
@@ -87,4 +112,4 @@ const Register: NextPage = () => {
   )
 }
 
-export default Register
+export default Update

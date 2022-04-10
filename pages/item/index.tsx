@@ -1,8 +1,5 @@
 import type { NextPage } from 'next'
-import Head from 'next/head'
-import Image from 'next/image'
 import { useRouter } from 'next/router'
-import FloatingButton from '../../components/FloatingButton'
 import { useEffect, useState } from 'react'
 import { getItemList } from '../../api/item'
 
@@ -37,7 +34,7 @@ const Index: NextPage = () => {
             onClick={() => goToRegister()}
             className="rounded bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700"
           >
-            登録
+            追加
           </button>
         </div>
         <table className="w-full table-auto pt-8">
@@ -57,7 +54,7 @@ const Index: NextPage = () => {
                 <td className="border px-4 py-2 text-right">{item.weight}</td>
                 <td className="border px-4 py-2 text-right">
                   <a
-                    href="#"
+                    href={`item/${item.id}`}
                     className="font-medium text-blue-600 hover:underline dark:text-blue-500"
                   >
                     Edit
