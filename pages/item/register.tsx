@@ -2,12 +2,24 @@ import { NextPage } from 'next'
 import Link from 'next/link'
 
 import { useRouter } from 'next/router'
+import { useEffect, useState } from 'react'
+import { registerItem } from '../../api/item'
 
 const Register: NextPage = () => {
   const router = useRouter()
+  const [name, setName] = useState<string>('')
+  const [weight, setWeight] = useState<number>(0)
 
   const handleRegister = () => {
-    router.push('/item')
+    const form = {
+      name,
+      weight,
+    }
+    registerItem(form)
+      .catch((e) => console.error(e.message))
+      .finally(() => {
+        router.push('/item')
+      })
   }
 
   return (
@@ -25,6 +37,7 @@ const Register: NextPage = () => {
             id="name"
             type="text"
             placeholder="Item Name"
+            onChange={(e) => setName(e.target.value)}
           />
         </div>
         <div className="mb-6">
@@ -49,6 +62,7 @@ const Register: NextPage = () => {
             className="focus:shadow-outline w-full appearance-none rounded border py-2 px-3 leading-tight text-gray-700 shadow focus:outline-none"
             id="weight"
             type="number"
+            onChange={(e) => setWeight(Number(e.target.value))}
           />
         </div>
         <div className="flex items-center">
