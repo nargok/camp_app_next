@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { registerItem } from '../../api/item'
+import ActionButton from '../../components/ActionButton'
 
 const Register: NextPage = () => {
   const router = useRouter()
@@ -65,14 +66,15 @@ const Register: NextPage = () => {
             onChange={(e) => setWeight(Number(e.target.value))}
           />
         </div>
+        {/* todo */}
+        <div>ざっくり重量登録できるUIを追加 +500g + 1kgみたいな</div>
         <div className="flex items-center">
-          <button
-            className="focus:shadow-outline mr-4 rounded bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700 focus:outline-none"
-            type="button"
-            onClick={() => handleRegister()}
-          >
-            登録
-          </button>
+          <ActionButton
+            color={'bg-blue-500'}
+            hoverColor={'hover:bg-blue-700'}
+            handleClick={handleRegister}
+            buttonText={'登録'}
+          />
           <Link href="/item">
             <a className="inline-block align-baseline text-sm font-bold text-blue-500 hover:text-blue-800">
               キャンセル
