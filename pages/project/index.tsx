@@ -63,7 +63,7 @@ const Index: NextPage = () => {
               </td>
               <td className="border px-4 py-2 text-right">
                 <a
-                  href={`item/${project.id}`}
+                  href={`project/${project.id}`}
                   className="font-medium text-blue-600 hover:underline dark:text-blue-500"
                 >
                   Edit
