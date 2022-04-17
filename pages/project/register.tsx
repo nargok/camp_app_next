@@ -7,6 +7,7 @@ import 'react-datepicker/dist/react-datepicker.css'
 import { useRouter } from 'next/router'
 import { FormEvent, useEffect, useRef, useState } from 'react'
 import { registerItem } from '../../api/item'
+import { registerProject } from '../../api/project'
 import ActionButton from '../../components/ActionButton'
 
 const Register: NextPage = () => {
@@ -19,13 +20,16 @@ const Register: NextPage = () => {
 
   const handleRegister = () => {
     const form = {
-      name,
+      title,
       place,
+      start_date: startDate,
+      end_date: endDate,
+      memo,
     }
-    registerItem(form)
+    registerProject(form)
       .catch((e) => console.error(e.message))
       .finally(() => {
-        router.push('/item')
+        router.push('/project')
       })
   }
 

@@ -12,6 +12,18 @@ class Project {
   ) {}
 }
 
+interface ProjectRegiserRequest {
+  title: string
+  place: string
+  start_date: Date
+  end_date: Date
+  memo?: string
+}
+
 export const getProjectList = (): Promise<AxiosResponse<Project[]>> => {
   return request.get('/project/list')
+}
+
+export const registerProject = (data: ProjectRegiserRequest) => {
+  return request.post('/project/register', data)
 }
