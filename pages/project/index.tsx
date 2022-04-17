@@ -39,9 +39,11 @@ const Index: NextPage = () => {
               <td className="border px-4 py-2">{project.title}</td>
               <td className="border px-4 py-2">{project.place}</td>
               <td className="border px-4 py-2 text-right">
-                {project.startDate}
+                {project.start_date}
               </td>
-              <td className="border px-4 py-2 text-right">{project.endDate}</td>
+              <td className="border px-4 py-2 text-right">
+                {project.end_date}
+              </td>
               <td className="border px-4 py-2 text-right">
                 <a
                   href={`item/${project.id}`}

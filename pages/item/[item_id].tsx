@@ -45,6 +45,15 @@ const Update: NextPage = () => {
       .finally(() => router.push('/item'))
   }
 
+  const handleDelete = () => {
+    const res = confirm('Are you sure to delete?')
+    if (res) {
+      alert('ケチちゃいます')
+    } else {
+      alert('消すのをやめます')
+    }
+  }
+
   return (
     <>
       <form className="mb-4 rounded bg-white px-8 pt-6 pb-8 ">
@@ -90,7 +99,7 @@ const Update: NextPage = () => {
             onChange={(e) => setWeight(Number(e.target.value))}
           />
         </div>
-        <div className="flex items-center">
+        <div className="relative flex items-center">
           <button
             className="focus:shadow-outline mr-4 rounded bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700 focus:outline-none"
             type="button"
@@ -103,6 +112,13 @@ const Update: NextPage = () => {
               キャンセル
             </a>
           </Link>
+          {/* TODO カラーとテキスト、Functionを渡すButtonコンポーネントをつくる */}
+          <button
+            className="absolute right-0 inline-block rounded bg-red-500 px-4 py-2 font-bold text-white hover:bg-red-700 focus:outline-none"
+            onClick={() => handleDelete()}
+          >
+            削除
+          </button>
         </div>
       </form>
       <p className="text-center text-xs text-gray-500">
