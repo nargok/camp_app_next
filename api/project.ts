@@ -12,6 +12,10 @@ class Project {
   ) {}
 }
 
+interface ProjectList {
+  project_list: Project[]
+}
+
 interface ProjectRegiserRequest {
   title: string
   place: string
@@ -20,7 +24,7 @@ interface ProjectRegiserRequest {
   memo?: string
 }
 
-export const getProjectList = (): Promise<AxiosResponse<Project[]>> => {
+export const getProjectList = (): Promise<AxiosResponse<ProjectList>> => {
   return request.get('/project/list')
 }
 

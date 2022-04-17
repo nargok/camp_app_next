@@ -1,4 +1,5 @@
 import { NextPage } from 'next'
+import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { getProjectList } from '../../api/project'
 
@@ -9,9 +10,13 @@ interface Project {
   startDate: Date
   endDate: Date
 }
+interface ProjectList {
+  project_list: Project[]
+}
 
 const Index: NextPage = () => {
-  const [projectList, setProjectList] = useState<Project[]>([])
+  const router = useRouter()
+  const [projectList, setProjectList] = useState<ProjectList>([])
 
   useEffect(() => {
     getProjectList()
@@ -21,8 +26,20 @@ const Index: NextPage = () => {
       .catch((e) => console.error(e.message))
   }, [])
 
+  const goToRegister = () => {
+    router.push('/project/register')
+  }
+
   return (
     <div className="px-4">
+      <div className="mt-2">
+        <button
+          onClick={() => goToRegister()}
+          className="rounded bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700"
+        >
+          追加
+        </button>
+      </div>
       <table className="w-full table-auto pt-8">
         <thead>
           <tr>

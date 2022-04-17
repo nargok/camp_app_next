@@ -3,7 +3,6 @@ import { AppProps } from 'next/app'
 import Head from 'next/head'
 import Image from 'next/image'
 import Layout from '../components/Layout'
-import 'flowbite'
 
 function Home() {
   return (
